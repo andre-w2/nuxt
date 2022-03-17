@@ -2,9 +2,9 @@
      <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
         <div class="row bg-white shadow-sm">
            <div class="col border rounded p-4">
-            <h3 class="text-center mb-4">Вход</h3>
+            <h3 class="text-center mb-4">Создать</h3>
             <p class="text-center">
-            	<NuxtLink class="text-danger" to="/register">Создать</NuxtLink>
+            	<NuxtLink class="text-danger" to="/">Войти</NuxtLink>
             </p>
             <form @submit.prevent="sendForm" action="#" method="post">
                 <div class="form-group">
@@ -15,11 +15,7 @@
                   <label>Пароль</label>
                   <input v-model="user.pass" type="password" class="form-control">
                 </div>
-                <div class="form-group form-check">
-                  <input v-model="user.checkbox" type="checkbox" class="form-check-input">
-                  <label class="form-check-label">Запомнить</label>
-                </div>
-                <button :disabled="isLoading" type="submit" class="btn btn-primary w-100">Войти</button>
+                <button :disabled="isLoading" type="submit" class="btn btn-primary w-100">Создать</button>
               </form>
            </div>
         </div>
@@ -36,8 +32,7 @@ export default Vue.extend({
 		return {
 			user: {
 				email: "",
-				pass: "",
-				checkbox: false
+				pass: ""
 			}
 		}
 	},
