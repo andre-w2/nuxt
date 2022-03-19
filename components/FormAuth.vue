@@ -15,11 +15,10 @@
                   <label>Пароль</label>
                   <input v-model="user.pass" type="password" class="form-control">
                 </div>
-                <div class="form-group form-check">
-                  <input v-model="user.checkbox" type="checkbox" class="form-check-input">
-                  <label class="form-check-label">Запомнить</label>
-                </div>
                 <button :disabled="isLoading" type="submit" class="btn btn-primary w-100">Войти</button>
+                <b-alert class="mt-4" :show="message ? true : false" variant="warning">{{ message }}</b-alert>
+       			<b-alert class="mt-4" :show="isLoggedIn" variant="success">Успешно</b-alert>
+        		<b-alert class="mt-4" :show="error" variant="danger">Ошибка!</b-alert>
               </form>
            </div>
         </div>
@@ -28,7 +27,7 @@
 
 <script lang="ts">
 import Vue from "vue"
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default Vue.extend({
 	name: "MvcFormAuth",
@@ -36,21 +35,28 @@ export default Vue.extend({
 		return {
 			user: {
 				email: "",
-				pass: "",
-				checkbox: false
+				pass: ""
 			}
 		}
 	},
 	computed: {
-		isLoading () {
-			return this.$store.state.auth.isLoading 
-		}
+		...mapState({
+			isLoading: state => state.auth.isLoading,
+            isLoggedIn: state => state.auth.isLoggedIn,
+			message: state => state.auth.message,
+            error: state => state.auth.error
+		})
 	},
 	methods: {
-		 ...mapActions( "auth", [ "register" ] ),
+		 ...mapActions( "auth", [ "loginStart" ] ),
 		sendForm () {
 			if ( this.user.email && this.user.pass ) {
-				this.register()
+				this.loginStart({
+					email: this.user.email,
+              		password: this.user.pass
+				}).then(() => {
+					this.$router.push('/')
+				})
 			}
 		}
 	}
