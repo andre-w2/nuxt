@@ -1,11 +1,9 @@
 <template>
-  <form-register />
+   <form-register />
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
-  name: 'RegisterPage',
-})
+<script>
+export default {
+   name: 'RegisterPage',
+}
 </script>
